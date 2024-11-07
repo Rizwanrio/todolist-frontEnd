@@ -1,0 +1,26 @@
+<!-- add-task.component.html -->
+<h2>Add New Task</h2>
+
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <label for="title">Title:</label>
+  <input formControlName="title" id="title" type="text" required />
+
+  <label for="description">Description:</label>
+  <input formControlName="description" id="description" type="text" />
+
+  <label for="dueDate">Due Date:</label>
+  <input formControlName="dueDate" id="dueDate" type="date" />
+
+  <label for="priority">Priority:</label>
+  <select formControlName="priority">
+    <option value="Low">Low</option>
+    <option value="Medium">Medium</option>
+    <option value="High">High</option>
+  </select>
+
+  <div>
+    <button type="button" (click)="goBack()">Go Back</button>
+    <button type="submit">Submit Task</button>
+    <button type="button" (click)="onCancel()">Cancel Task</button>
+  </div>
+</form>

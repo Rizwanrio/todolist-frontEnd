@@ -1,0 +1,13 @@
+<div class="sign-in-form">
+  <h2>Sign In</h2>
+  <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+    <label for="username">Username</label>
+    <input id="username" formControlName="username" type="text" />
+
+    <label for="password">Password</label>
+    <input id="password" formControlName="password" type="password" />
+
+    <button type="submit">Sign In</button>
+    <button type="button" (click)="goToRegister()">Register</button>
+  </form>
+</div>

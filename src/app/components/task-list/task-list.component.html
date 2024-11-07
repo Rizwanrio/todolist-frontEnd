@@ -1,0 +1,33 @@
+<div class="task-list-container">
+  <button (click)="navigateToAddTask()">Add New Task</button>
+
+  <h2>Your Tasks</h2>
+
+  <table *ngIf="tasks.length > 0" class="task-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Due Date</th>
+        <th>Priority</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{ task.title }}</td>
+        <td>{{ task.description }}</td>
+        <td>{{ task.dueDate | date : "shortDate" }}</td>
+        <td>{{ task.priority }}</td>
+        <td>
+          <button (click)="editTask(task.id)">Edit</button>
+          <button (click)="deleteTask(task.id)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <button (click)="logout()">Logout</button>
+
+  <p *ngIf="tasks.length === 0">No tasks available. Please add some tasks!</p>
+</div>
