@@ -1,26 +1,97 @@
 <!-- add-task.component.html -->
-<h2>Add New Task</h2>
+<div class="add-task-page">
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <h2 class="new-task">Add New Task</h2>
+    <label for="title">Title:</label>
+    <input
+      class="input-style"
+      formControlName="title"
+      id="title"
+      type="text"
+      required
+    />
 
-<form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
-  <label for="title">Title:</label>
-  <input formControlName="title" id="title" type="text" required />
+    <label for="description">Description:</label>
+    <textarea formControlName="description" id="description"></textarea>
 
-  <label for="description">Description:</label>
-  <input formControlName="description" id="description" type="text" />
+    <label for="dueDate">Due Date:</label>
+    <input
+      formControlName="dueDate"
+      id="dueDate"
+      type="date"
+      class="input-style"
+    />
 
-  <label for="dueDate">Due Date:</label>
-  <input formControlName="dueDate" id="dueDate" type="date" />
+    <label for="priority">Priority:</label>
+    <select formControlName="priority">
+      <option value="Low" selected>Low</option>
+      <option value="Medium">Medium</option>
+      <option value="High">High</option>
+    </select>
 
-  <label for="priority">Priority:</label>
-  <select formControlName="priority">
-    <option value="Low">Low</option>
-    <option value="Medium">Medium</option>
-    <option value="High">High</option>
-  </select>
-
-  <div>
-    <button type="button" (click)="goBack()">Go Back</button>
-    <button type="submit">Submit Task</button>
-    <button type="button" (click)="onCancel()">Cancel Task</button>
+    <label for="status">Status:</label>
+    <select formControlName="status">
+      <option value="pending" selected>pending</option>
+      <option value="done">done</option>
+      <option value="overdue">overdue</option>
+    </select>
+    <div class="submit-task-div">
+      <button type="submit" class="submit-task">Submit Task</button>
+    </div>
+  </form>
+  <div class="nav-task-button">
+    <button class="page-nav-btn" type="button" (click)="goBack()">
+      Go Back
+    </button>
+    <button class="page-nav-btn" type="button" (click)="onCancel()">
+      Clear Task
+    </button>
   </div>
-</form>
+</div>
+<!--
+
+<div class="container">
+      <div class="text">
+         Contact us Form
+      </div>
+      <form action="#">
+         <div class="form-row">
+            <div class="input-data">
+               <input type="text" required>
+               <div class="underline"></div>
+               <label for="">First Name</label>
+            </div>
+            <div class="input-data">
+               <input type="text" required>
+               <div class="underline"></div>
+               <label for="">Last Name</label>
+            </div>
+         </div>
+         <div class="form-row">
+            <div class="input-data">
+               <input type="text" required>
+               <div class="underline"></div>
+               <label for="">Email Address</label>
+            </div>
+            <div class="input-data">
+               <input type="text" required>
+               <div class="underline"></div>
+               <label for="">Website Name</label>
+            </div>
+         </div>
+         <div class="form-row">
+         <div class="input-data textarea">
+            <textarea rows="8" cols="80" required></textarea>
+            <br />
+            <div class="underline"></div>
+            <label for="">Write your message</label>
+            <br />
+            <div class="form-row submit-btn">
+               <div class="input-data">
+                  <div class="inner"></div>
+                  <input type="submit" value="submit">
+               </div>
+            </div>
+      </form>
+      </div>
+-->

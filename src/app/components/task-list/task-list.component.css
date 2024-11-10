@@ -1,0 +1,144 @@
+table {
+  background-color: aliceblue;
+}
+
+.delete-btn {
+  background-color: red;
+  border-radius: 5px;
+  border-style: none;
+  margin-left: 10px;
+}
+
+.task-header {
+  color: antiquewhite;
+  text-align: center;
+}
+
+.task-head {
+  background-color: black;
+  color: aliceblue;
+}
+
+table {
+  width: 70%; /* Set a fixed width for the table */
+  table-layout: fixed; /* Ensures columns don't expand with content */
+}
+
+th,
+td {
+  width: 150px; /* Set a fixed width for each column (adjust as needed) */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; /* Prevents text from wrapping */
+}
+
+.description-cell {
+  width: 200px; /* Set fixed width */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.description-cell:hover {
+  white-space: normal;
+  position: relative;
+  z-index: 1;
+  background-color: #f9f9f9;
+  max-width: 300px; /* Expand to a larger width on hover */
+  overflow: visible;
+}
+
+.pg-no {
+  color: #f9f9f9;
+}
+
+.icon-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  color: #333333;
+  background: #dddddd;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  margin: 5px;
+}
+
+.icon-button:hover {
+  cursor: pointer;
+}
+
+.icon-button:active {
+  background: #cccccc;
+}
+
+.icon-button__badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 25px;
+  height: 25px;
+  background: red;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+
+.notification-dropdown {
+  background-color: #f9f9f9;
+  display: none;
+  position: absolute;
+}
+
+.notification-container {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-container:hover .notification-dropdown {
+  display: block;
+}
+
+.list-top {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.task-list-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.table-style {
+  align-self: center;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.list-bottom {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrows {
+  background-color: transparent;
+  border: none;
+}

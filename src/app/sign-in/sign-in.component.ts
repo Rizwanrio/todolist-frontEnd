@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class SignInComponent {
   signInForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -37,7 +38,10 @@ export class SignInComponent {
           // store token
           this.router.navigate(['/tasks']); // navigate to the tasks page
         },
-        error: (err) => console.error('Login error:', err),
+        error: (err) => {
+          console.error('Login error:', err);
+          this.errorMessage = err.message;
+        },
       });
     }
   }

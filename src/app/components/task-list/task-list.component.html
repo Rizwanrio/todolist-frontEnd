@@ -1,33 +1,90 @@
 <div class="task-list-container">
-  <button (click)="navigateToAddTask()">Add New Task</button>
+  <div class="list-top">
+    <button (click)="navigateToAddTask()" class="btn btn-primary">
+      Add New Task
+    </button>
 
-  <h2>Your Tasks</h2>
+    <!-- Notification Bell with Overdue Tasks Badge -->
+    <div class="notification-container">
+      <!-- Notification Bell with Overdue Tasks Badge -->
+      <button type="button" class="icon-button" (click)="toggleDropdown()">
+        <i class="bi bi-bell-fill notification h5" style="color: black"></i>
+        <span class="icon-button__badge">{{ notifications.length }}</span>
+      </button>
 
-  <table *ngIf="tasks.length > 0" class="task-table">
-    <thead>
+      <!-- Dropdown for Overdue Notifications -->
+      <div *ngIf="isDropdownOpen" class="notification-dropdown">
+        <h4>Overdue Tasks</h4>
+        <div *ngIf="notifications.length === 0">No overdue tasks</div>
+        <ul>
+          <li *ngFor="let notification of notifications">
+            {{ notification }}
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <h2 class="task-header">Your Tasks</h2>
+
+  <table *ngIf="tasks.length > 0" class="table table-hover table-style">
+    <thead class="thead-style">
       <tr>
         <th>Title</th>
         <th>Description</th>
         <th>Due Date</th>
         <th>Priority</th>
+        <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let task of tasks">
+      <tr *ngFor="let task of paginatedData">
         <td>{{ task.title }}</td>
-        <td>{{ task.description }}</td>
+        <td class="description-cell" [title]="task.description">
+          {{ task.description }}
+        </td>
+
         <td>{{ task.dueDate | date : "shortDate" }}</td>
         <td>{{ task.priority }}</td>
+        <td>{{ task.status }}</td>
         <td>
-          <button (click)="editTask(task.id)">Edit</button>
-          <button (click)="deleteTask(task.id)">Delete</button>
+          <button (click)="editTask(task.id)">
+            <i class="bi bi-pencil-square"></i>
+          </button>
+          <button (click)="deleteTask(task.id)" class="delete-btn">
+            <i class="bi bi-trash"></i>
+          </button>
         </td>
       </tr>
     </tbody>
   </table>
 
-  <button (click)="logout()">Logout</button>
+  <!-- Pagination controls -->
+  <div class="list-bottom">
+    <div class="logout-btn">
+      <button (click)="logout()" class="btn btn-secondary">
+        <i class="bi bi-box-arrow-left"></i>Logout
+      </button>
+    </div>
+    <div class="pagination">
+      <button
+        (click)="goToPage(currentPage - 1)"
+        [disabled]="currentPage === 1"
+        class="arrows"
+        style="color: azure"
+      >
+        <i class="bi bi-arrow-left-circle-fill h3"></i>
+      </button>
+      <span class="pg-no">Page {{ currentPage }} of {{ totalPages }}</span>
+      <button
+        (click)="goToPage(currentPage + 1)"
+        [disabled]="currentPage === totalPages"
+        class="arrows"
+      >
+        <i class="bi bi-arrow-right-circle-fill h3" style="color: azure"></i>
+      </button>
+    </div>
+  </div>
 
   <p *ngIf="tasks.length === 0">No tasks available. Please add some tasks!</p>
 </div>

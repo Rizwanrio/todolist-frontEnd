@@ -3,6 +3,7 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { TaskListComponent } from './components/task-list/task-list.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { RegisterComponent } from './register/register.component';
+import { TaskEditComponent } from './task-edit/task-edit.component';
 //import { AuthGuard } from './auth.guard';
 //import { authguard } from './auth.guard';
 
@@ -14,5 +15,6 @@ export const routes: Routes = [
     path: 'add-task',
     component: AddTaskComponent /*canActivate: [authguard]*/,
   },
-  { path: '', redirectTo: 'sign-in', pathMatch: 'full' },
+  { path: 'tasks/edit/:id', component: TaskEditComponent },
+  { path: '', redirectTo: 'register', pathMatch: 'full' },
 ];

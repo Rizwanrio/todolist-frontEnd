@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { Observable } from 'rxjs';
+import { Task } from '../models/task.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  private apiUrl = 'http://localhost:8080/api/tasks'; // Replace with your backend endpoint
+  private apiUrl = environment.apiUrl + '/api/tasks'; // Replace with your backend endpoint
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
@@ -24,8 +26,20 @@ export class TaskService {
     return this.http.delete<any>(url, { withCredentials: true });
   }
 
+  getTaskById(taskId: string): Observable<Task> {
+    return this.http.get<Task>(`${this.apiUrl}/${taskId}`, {
+      withCredentials: true,
+    });
+  }
+
   // Add other task-related methods here (e.g., createTask, updateTask)
   addTask(task: any) {
     return this.http.post(this.apiUrl, task, { withCredentials: true });
+  }
+
+  editTask(task: any, taskId: string) {
+    return this.http.put(`${this.apiUrl}/${taskId}`, task, {
+      withCredentials: true,
+    });
   }
 }

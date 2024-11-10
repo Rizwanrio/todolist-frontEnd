@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
+import { CookieService } from 'ngx-cookie-service';
+import { environment } from '../../environments/environment';
 //import { SsrCookieService } from 'ngx-cookie-service-ssr';
 
 interface RegisterPayload {
@@ -15,12 +17,13 @@ interface RegisterPayload {
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8080/api/users'; // Your backend endpoint URL
+  private baseUrl = environment.apiUrl + '/api/users'; // Your backend endpoint URL
   private tokenKey = 'auth_token'; // Key to store token in local storage
 
   constructor(
     private http: HttpClient,
-    private router: Router // private cookieService: SsrCookieService
+    private router: Router, // private cookieService: SsrCookieService
+    private cookieService: CookieService
   ) {}
 
   // Login method
@@ -35,7 +38,15 @@ export class AuthService {
         }
       )
 
-      .pipe(map((response) => response.token));
+      .pipe(
+        map((response) => response.token),
+        catchError((error) => {
+          // Extract and throw the error message from the response
+          const errorMessage =
+            error.error?.error || 'An error occurred during login';
+          return throwError(() => new Error(errorMessage));
+        })
+      );
   }
 
   register(data: RegisterPayload): Observable<any> {
@@ -48,10 +59,19 @@ export class AuthService {
 
   // Method to log out the user
   logout() {
-    return this.http.post(`${this.baseUrl}/logout`, {}).subscribe(() => {
-      // Redirect to login or home after logout
-      this.router.navigate(['/sign-in']);
-    });
+    return this.http
+      .post(`${this.baseUrl}/logout`, { withCredentials: true })
+      .subscribe({
+        next: () => {
+          // Redirect to login or home after logout
+          // this.cookieService.delete('auth_token');
+          this.cookieService.deleteAll('auth_token');
+          this.router.navigate(['/register']);
+        },
+        error: () => {
+          console.log('logout failed');
+        },
+      });
   }
 
   fetchCsrfToken() {

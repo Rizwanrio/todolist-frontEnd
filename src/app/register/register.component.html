@@ -1,7 +1,7 @@
-<div class="registration-container">
+<!--<div class="registration-container" id="regMain">
   <h2>Register</h2>
   <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-    <div>
+    <div class="form-values">
       <label for="username">Username</label>
       <input id="username" formControlName="username" required />
       <div
@@ -14,9 +14,19 @@
       </div>
     </div>
 
-    <div>
+    <div class="form-values">
       <label for="email">Email</label>
-      <input id="email" formControlName="email" type="email" required />
+      <input
+        id="email"
+        formControlName="email"
+        type="email"
+        required
+        placeholder="Enter email"
+      />
+      <small id="emailHelp" class="form-text text-muted"
+        >We'll never share your email with anyone else.</small
+      >
+
       <div
         *ngIf="
           registerForm.get('email')?.touched &&
@@ -27,7 +37,7 @@
       </div>
     </div>
 
-    <div>
+    <div class="form-values">
       <label for="password">Password</label>
       <input
         id="password"
@@ -44,10 +54,90 @@
         Password is required.
       </div>
     </div>
-
-    <button type="submit" [disabled]="registerForm.invalid">Register</button>
-    <button type="button" (click)="goToSignIn()">SignIn</button>
+    <div class="bt-reg-align">
+      <button
+        type="submit"
+        class="btn btn-info"
+        [disabled]="registerForm.invalid"
+      >
+        Register
+      </button>
+      <button type="button" (click)="goToSignIn()" class="btn btn-primary">
+        SignIn
+      </button>
+    </div>
   </form>
 
   <div *ngIf="message">{{ message }}</div>
+</div>
+-->
+
+<div class="main">
+  <input type="checkbox" id="chk" aria-hidden="true" />
+
+  <div class="signup registration-container">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+      <label for="chk" aria-hidden="true">Sign up</label>
+      <div class="form-values">
+        <input
+          type="text"
+          name="txt"
+          placeholder="User name"
+          id="username"
+          formControlName="username"
+          required
+        />
+      </div>
+      <div class="form-values">
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          id="email"
+          formControlName="email"
+          type="email"
+          required
+        />
+      </div>
+      <div class="form-values">
+        <input
+          type="password"
+          name="pswd"
+          placeholder="Password"
+          id="password"
+          formControlName="password"
+          type="password"
+          required
+        />
+      </div>
+      <button type="submit">Sign up</button>
+    </form>
+  </div>
+
+  <div class="login">
+    <form [formGroup]="signInForm" (ngSubmit)="onSignIn()">
+      <label for="chk" aria-hidden="true">Login</label>
+      <input
+        name="username"
+        placeholder="Username"
+        required=""
+        id="username-in"
+        formControlName="username"
+        type="text"
+      />
+      <input
+        type="password"
+        name="pswd"
+        placeholder="Password"
+        required=""
+        id="password-in"
+        formControlName="password"
+        type="password"
+      />
+      <div *ngIf="message" class="error-message">
+        {{ message }}
+      </div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
 </div>

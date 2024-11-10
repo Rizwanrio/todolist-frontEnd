@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent {
   registerForm: FormGroup;
+  signInForm: FormGroup;
   message: string | null = null;
 
   constructor(
@@ -23,6 +24,10 @@ export class RegisterComponent {
     this.registerForm = this.fb.group({
       username: [''],
       email: [''],
+      password: [''],
+    });
+    this.signInForm = this.fb.group({
+      username: [''],
       password: [''],
     });
   }
@@ -47,5 +52,25 @@ export class RegisterComponent {
 
   goToSignIn() {
     this.router.navigate(['/sign-in']);
+  }
+
+  onSignIn() {
+    // Implement sign-in logic, including JWT handling, here
+    if (this.signInForm.valid) {
+      const { username, password } = this.signInForm.value;
+      this.authService.login(username, password).subscribe({
+        next: (token) => {
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('token', token);
+          }
+          // store token
+          this.router.navigate(['/tasks']); // navigate to the tasks page
+        },
+        error: (err) => {
+          console.error('Login error:', err);
+          this.message = err.message;
+        },
+      });
+    }
   }
 }

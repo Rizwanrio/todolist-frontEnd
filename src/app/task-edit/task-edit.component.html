@@ -1,0 +1,104 @@
+<!--<h2>Edit Task {{ taskId }}</h2>
+
+<form [formGroup]="editTaskForm" (ngSubmit)="onEditTask()">
+  <label for="title">Title:</label>
+  <input formControlName="title" id="title" type="text" required />
+
+  <label for="description">Description:</label>
+  <input formControlName="description" id="description" type="text" />
+
+  <label for="dueDate">Due Date:</label>
+  <input formControlName="dueDate" id="dueDate" type="date" />
+
+  <label for="priority">Priority:</label>
+  <select formControlName="priority">
+    <option value="Low" [selected]="this.task?.priority === 'Low'">Low</option>
+    <option value="Medium" [selected]="this.task?.priority === 'Medium'">
+      Medium
+    </option>
+    <option value="High" [selected]="this.task?.priority === 'High'">
+      High
+    </option>
+  </select>
+
+  <label for="status">Priority:</label>
+  <select formControlName="status">
+    <option value="pending" [selected]="this.task?.status === 'pending'">
+      pending
+    </option>
+    <option value="done" [selected]="this.task?.status === 'done'">done</option>
+    <option value="overdue" [selected]="this.task?.status === 'overdue'">
+      overdue
+    </option>
+  </select>
+
+  <div>
+    <button type="button" (click)="goBack()">Go Back</button>
+    <button type="submit">Submit Task</button>
+    <button type="button" (click)="onClear()">Clear Task</button>
+  </div>
+</form>
+-->
+
+<!-- add-task.component.html -->
+<div class="add-task-page">
+  <form [formGroup]="editTaskForm" (ngSubmit)="onEditTask()">
+    <h2 class="new-task">Edit Task</h2>
+    <label for="title">Title:</label>
+    <input
+      class="input-style"
+      formControlName="title"
+      id="title"
+      type="text"
+      required
+    />
+
+    <label for="description">Description:</label>
+    <textarea formControlName="description" id="description"></textarea>
+
+    <label for="dueDate">Due Date:</label>
+    <input
+      formControlName="dueDate"
+      id="dueDate"
+      type="date"
+      class="input-style"
+    />
+
+    <label for="priority">Priority:</label>
+    <select formControlName="priority">
+      <option value="Low" [selected]="this.task?.priority === 'Low'">
+        Low
+      </option>
+      <option value="Medium" [selected]="this.task?.priority === 'Medium'">
+        Medium
+      </option>
+      <option value="High" [selected]="this.task?.priority === 'High'">
+        High
+      </option>
+    </select>
+
+    <label for="status">Status:</label>
+    <select formControlName="status">
+      <option value="pending" [selected]="this.task?.status === 'pending'">
+        pending
+      </option>
+      <option value="done" [selected]="this.task?.status === 'done'">
+        done
+      </option>
+      <option value="overdue" [selected]="this.task?.status === 'overdue'">
+        overdue
+      </option>
+    </select>
+    <div class="submit-task-div">
+      <button type="submit" class="submit-task">Edit Task</button>
+    </div>
+  </form>
+  <div class="nav-task-button">
+    <button class="page-nav-btn" type="button" (click)="goBack()">
+      Go Back
+    </button>
+    <button class="page-nav-btn" type="button" (click)="onClear()">
+      Clear Task
+    </button>
+  </div>
+</div>
