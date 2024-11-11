@@ -95,6 +95,7 @@ export class TaskListComponent implements OnInit {
       next: () => {
         // Remove the deleted task from the tasks array in the UI
         this.tasks = this.tasks.filter((task) => task.id !== taskId);
+        this.fetchTasks();
       },
       error: (error) => {
         console.error('Failed to delete task:', error);

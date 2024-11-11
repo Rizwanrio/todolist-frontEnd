@@ -1,0 +1,10 @@
+{
+  "builds": [
+    {
+      "src": "src/main.ts",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist/todo-app" }
+    }
+  ],
+  "routes": [{ "src": "/(.*)", "dest": "/index.html" }]
+}
