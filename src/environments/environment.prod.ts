@@ -1,5 +1,5 @@
 // src/environments/environment.prod.ts
 export const environment = {
   production: true,
-  apiUrl: 'https://your-backend-name.up.railway.app', // production backend URL
+  apiUrl: 'https://my-spring-backend-secure-v1-0.onrender.com', // production backend URL
 };

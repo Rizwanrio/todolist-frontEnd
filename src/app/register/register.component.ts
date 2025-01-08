@@ -14,7 +14,8 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   registerForm: FormGroup;
   signInForm: FormGroup;
-  message: string | null = null;
+  messageErr: string | null = null;
+  signInErr: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -38,13 +39,13 @@ export class RegisterComponent {
       this.authService.register({ username, email, password }).subscribe({
         next: (res) => {
           console.log('Success Response:', res);
-          this.message = 'Registration successful! Please SignIn Now';
+          this.messageErr = 'Registration successful! Please SignIn Now';
           this.registerForm.reset();
         },
         error: (err) => {
           console.log('Success Response:', err);
-          this.message =
-            err.error.message || 'Registration failed. Please try again.';
+          this.messageErr =
+            err.error || 'Registration failed. Please try again.';
         },
       });
     }
@@ -59,16 +60,14 @@ export class RegisterComponent {
     if (this.signInForm.valid) {
       const { username, password } = this.signInForm.value;
       this.authService.login(username, password).subscribe({
-        next: (token) => {
-          if (typeof window !== 'undefined') {
-            localStorage.setItem('token', token);
-          }
+        next: (message) => {
+          this.messageErr = null;
           // store token
           this.router.navigate(['/tasks']); // navigate to the tasks page
         },
         error: (err) => {
           console.error('Login error:', err);
-          this.message = err.message;
+          this.signInErr = err.message;
         },
       });
     }

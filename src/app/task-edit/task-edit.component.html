@@ -1,45 +1,3 @@
-<!--<h2>Edit Task {{ taskId }}</h2>
-
-<form [formGroup]="editTaskForm" (ngSubmit)="onEditTask()">
-  <label for="title">Title:</label>
-  <input formControlName="title" id="title" type="text" required />
-
-  <label for="description">Description:</label>
-  <input formControlName="description" id="description" type="text" />
-
-  <label for="dueDate">Due Date:</label>
-  <input formControlName="dueDate" id="dueDate" type="date" />
-
-  <label for="priority">Priority:</label>
-  <select formControlName="priority">
-    <option value="Low" [selected]="this.task?.priority === 'Low'">Low</option>
-    <option value="Medium" [selected]="this.task?.priority === 'Medium'">
-      Medium
-    </option>
-    <option value="High" [selected]="this.task?.priority === 'High'">
-      High
-    </option>
-  </select>
-
-  <label for="status">Priority:</label>
-  <select formControlName="status">
-    <option value="pending" [selected]="this.task?.status === 'pending'">
-      pending
-    </option>
-    <option value="done" [selected]="this.task?.status === 'done'">done</option>
-    <option value="overdue" [selected]="this.task?.status === 'overdue'">
-      overdue
-    </option>
-  </select>
-
-  <div>
-    <button type="button" (click)="goBack()">Go Back</button>
-    <button type="submit">Submit Task</button>
-    <button type="button" (click)="onClear()">Clear Task</button>
-  </div>
-</form>
--->
-
 <!-- add-task.component.html -->
 <div class="add-task-page">
   <form [formGroup]="editTaskForm" (ngSubmit)="onEditTask()">
@@ -61,6 +19,7 @@
       formControlName="dueDate"
       id="dueDate"
       type="date"
+      [min]="minDate"
       class="input-style"
     />
 
@@ -77,16 +36,35 @@
       </option>
     </select>
 
+    <label for="category">Category:</label>
+    <select formControlName="category">
+      <option value="Work" [selected]="this.task?.category === 'Work'">
+        Work
+      </option>
+      <option value="Personal" [selected]="this.task?.category === 'Personal'">
+        Personal
+      </option>
+      <option
+        value="Health & Fitness"
+        [selected]="this.task?.category === 'Health $ Fitness'"
+      >
+        Health & Fitness
+      </option>
+      <option value="Travel" [selected]="this.task?.category === 'Travel'">
+        Travel
+      </option>
+    </select>
+
     <label for="status">Status:</label>
     <select formControlName="status">
-      <option value="pending" [selected]="this.task?.status === 'pending'">
-        pending
+      <option value="Pending" [selected]="this.task?.status === 'Pending'">
+        Pending
       </option>
-      <option value="done" [selected]="this.task?.status === 'done'">
-        done
+      <option value="Done" [selected]="this.task?.status === 'Done'">
+        Done
       </option>
-      <option value="overdue" [selected]="this.task?.status === 'overdue'">
-        overdue
+      <option value="Overdue" [selected]="this.task?.status === 'Overdue'">
+        Overdue
       </option>
     </select>
     <div class="submit-task-div">

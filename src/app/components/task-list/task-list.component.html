@@ -14,11 +14,19 @@
 
       <!-- Dropdown for Overdue Notifications -->
       <div *ngIf="isDropdownOpen" class="notification-dropdown">
-        <h4>Overdue Tasks</h4>
-        <div *ngIf="notifications.length === 0">No overdue tasks</div>
-        <ul>
-          <li *ngFor="let notification of notifications">
-            {{ notification }}
+        <h4 class="notify-head">Overdue Tasks</h4>
+        <div *ngIf="notifications.length === 0" class="no-notify">
+          No overdue tasks
+        </div>
+        <ul class="notify-list">
+          <li
+            *ngFor="let overDueTask of ovderDueTasks"
+            class="notify-sublist"
+            (click)="editTask(overDueTask.id)"
+          >
+            Task {{ overDueTask.title }} is Overdue<span class="overdue-logo"
+              ><i class="bi bi-stopwatch" style="color: brown"></i
+            ></span>
           </li>
         </ul>
       </div>
@@ -33,21 +41,31 @@
         <th>Description</th>
         <th>Due Date</th>
         <th>Priority</th>
+        <th>Category</th>
         <th>Status</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let task of paginatedData">
-        <td>{{ task.title }}</td>
+        <td class="t-d">{{ task.title }}</td>
         <td class="description-cell" [title]="task.description">
-          {{ task.description }}
+          <div class="description-cell">{{ task.description }}</div>
         </td>
 
         <td>{{ task.dueDate | date : "shortDate" }}</td>
         <td>{{ task.priority }}</td>
-        <td>{{ task.status }}</td>
-        <td>
+        <td>{{ task.category }}</td>
+        <td
+          [ngClass]="{
+            'pending-sty': task.status === 'Pending',
+            'done-sty': task.status === 'Done',
+            'overdue-sty': task.status === 'Overdue'
+          }"
+        >
+          {{ task.status }}
+        </td>
+        <td id="btn-td">
           <button (click)="editTask(task.id)">
             <i class="bi bi-pencil-square"></i>
           </button>
@@ -61,12 +79,12 @@
 
   <!-- Pagination controls -->
   <div class="list-bottom">
-    <div class="logout-btn">
+    <div class="logout-btn" *ngIf="tasks.length !== 0">
       <button (click)="logout()" class="btn btn-secondary">
         <i class="bi bi-box-arrow-left"></i>Logout
       </button>
     </div>
-    <div class="pagination">
+    <div class="pagination" *ngIf="tasks.length !== 0">
       <button
         (click)="goToPage(currentPage - 1)"
         [disabled]="currentPage === 1"
@@ -85,6 +103,22 @@
       </button>
     </div>
   </div>
-
-  <p *ngIf="tasks.length === 0">No tasks available. Please add some tasks!</p>
+  <div *ngIf="tasks.length === 0" class="no-tasks-display">
+    <div class="no-task-body">
+      <p *ngIf="tasks.length === 0" class="no-task-text">
+        No tasks available. Please add some tasks!
+      </p>
+    </div>
+    <div class="no-task-btn">
+      <div class="logout-btn">
+        <button
+          (click)="logout()"
+          class="btn btn-secondary"
+          *ngIf="tasks.length === 0"
+        >
+          <i class="bi bi-box-arrow-left"></i>Logout
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

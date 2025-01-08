@@ -10,7 +10,7 @@ table {
 }
 
 .task-header {
-  color: antiquewhite;
+  color: rgb(205, 211, 220);
   text-align: center;
 }
 
@@ -32,8 +32,12 @@ td {
   white-space: nowrap; /* Prevents text from wrapping */
 }
 
+#btn-td {
+  overflow: visible;
+}
+
 .description-cell {
-  width: 200px; /* Set fixed width */
+  width: 125px; /* Set fixed width */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -43,9 +47,10 @@ td {
   white-space: normal;
   position: relative;
   z-index: 1;
-  background-color: #f9f9f9;
-  max-width: 300px; /* Expand to a larger width on hover */
-  overflow: visible;
+
+  word-wrap: break-word;
+  /* max-width: 300px; /* Expand to a larger width on hover */
+  overflow-x: visible;
 }
 
 .pg-no {
@@ -91,8 +96,27 @@ td {
 
 .notification-dropdown {
   background-color: #f9f9f9;
+  width: 300px;
+  height: 200px;
   display: none;
+  overflow-x: scroll;
   position: absolute;
+  border-radius: 4px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.notify-head {
+  text-align: center;
+  /* background-color: #333333;
+  color: #cccccc;*/
+  background-color: #1976d2; /* Blue background for header */
+  color: white;
+  position: sticky;
+  top: 0;
+}
+
+.no-notify {
+  text-align: center;
 }
 
 .notification-container {
@@ -102,6 +126,7 @@ td {
 
 .notification-container:hover .notification-dropdown {
   display: block;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .list-top {
@@ -121,8 +146,10 @@ td {
 
 .table-style {
   align-self: center;
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  overflow: scroll;
+  cursor: pointer;
 }
 
 .list-bottom {
@@ -141,4 +168,171 @@ td {
 .arrows {
   background-color: transparent;
   border: none;
+}
+
+td {
+  max-width: 150px;
+  max-height: 150px;
+  overflow: hidden;
+}
+
+.pending-sty {
+  background-color: #fff8e1;
+  color: #f9a825;
+  font-weight: bold;
+}
+
+.done-sty {
+  color: #2e7d32; /* Dark green text */
+  background-color: #e8f5e9; /* Light green background */
+  font-weight: bold;
+  text-decoration: line-through;
+}
+
+.overdue-sty {
+  color: #d32f2f; /* Dark red text */
+  background-color: #ffebee; /* Light red/pink background */
+  font-weight: bold;
+}
+
+th {
+  background-color: #1976d2; /* Blue background for header */
+  color: white; /* White text for contrast */
+  padding: 12px; /* Add padding for better readability */
+  text-align: left; /* Align text to the left */
+  font-weight: bold;
+  font-size: 16px;
+  border-bottom: 2px solid #e0e0e0; /* Light border for separation */
+}
+
+th:first-child {
+  border-top-left-radius: 8px; /* Rounded top-left corner */
+}
+
+th:last-child {
+  border-top-right-radius: 8px; /* Rounded top-right corner */
+}
+
+.notify-list {
+  list-style-type: none;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.notify-sublist {
+  border-bottom: 2px solid #e0e0e0;
+  padding-left: 10px;
+  cursor: pointer;
+  /* Set fixed width */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.overdue-logo {
+  margin-left: 10px;
+}
+
+.no-task-display {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.no-task-body {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.no-task-btn {
+  width: 58vw;
+  display: flex;
+  justify-content: start;
+}
+
+.no-task-text {
+  font-size: 40px;
+  color: #26d7e4;
+  text-align: center;
+}
+
+/*resposive*/
+
+@media only screen and (max-width: 930px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+  }
+
+  tr {
+    border: 1px solid #ccc;
+  }
+
+  td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+    padding-right: 50%;
+    margin: 0px;
+  }
+
+  .notification-dropdown {
+    z-index: 1;
+    width: 150px;
+  }
+
+  td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+
+  /*
+	Label the data
+	*/
+  td:nth-of-type(1):before {
+    content: "Title";
+  }
+  td:nth-of-type(2):before {
+    content: "Description";
+  }
+  td:nth-of-type(3):before {
+    content: "Due Date";
+  }
+  td:nth-of-type(4):before {
+    content: "Priority";
+  }
+  td:nth-of-type(5):before {
+    content: "Category";
+  }
+  td:nth-of-type(6):before {
+    content: "Status";
+  }
+  td:nth-of-type(7):before {
+    content: "Actions";
+  }
 }

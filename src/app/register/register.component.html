@@ -75,7 +75,7 @@
 <div class="main">
   <input type="checkbox" id="chk" aria-hidden="true" />
 
-  <div class="signup registration-container">
+  <div class="signup">
     <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
       <label for="chk" aria-hidden="true">Sign up</label>
       <div class="form-values">
@@ -88,6 +88,7 @@
           required
         />
       </div>
+      <div class="required-message">Username is required.</div>
       <div class="form-values">
         <input
           type="email"
@@ -99,6 +100,7 @@
           required
         />
       </div>
+      <div class="required-message">Email is required.</div>
       <div class="form-values">
         <input
           type="password"
@@ -110,8 +112,12 @@
           required
         />
       </div>
+      <div class="required-message">Password is required.</div>
       <button type="submit">Sign up</button>
     </form>
+    <div *ngIf="messageErr" class="error-message">
+      {{ messageErr }}
+    </div>
   </div>
 
   <div class="login">
@@ -134,8 +140,8 @@
         formControlName="password"
         type="password"
       />
-      <div *ngIf="message" class="error-message">
-        {{ message }}
+      <div *ngIf="signInErr" class="error-message">
+        {{ signInErr }}
       </div>
       <button type="submit">Login</button>
     </form>

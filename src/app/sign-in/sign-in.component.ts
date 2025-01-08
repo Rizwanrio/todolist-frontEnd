@@ -31,10 +31,8 @@ export class SignInComponent {
     if (this.signInForm.valid) {
       const { username, password } = this.signInForm.value;
       this.authService.login(username, password).subscribe({
-        next: (token) => {
-          if (typeof window !== 'undefined') {
-            localStorage.setItem('token', token);
-          }
+        next: (message) => {
+          this.errorMessage = null;
           // store token
           this.router.navigate(['/tasks']); // navigate to the tasks page
         },

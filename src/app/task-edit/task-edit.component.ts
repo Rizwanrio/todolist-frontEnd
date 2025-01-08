@@ -22,6 +22,7 @@ export class TaskEditComponent implements OnInit {
   taskId: string | null = null;
   task: Task | null = null; // To hold the fetched task data
   editTaskForm: FormGroup;
+  minDate: string;
   private fb = inject(FormBuilder);
 
   constructor(
@@ -34,8 +35,11 @@ export class TaskEditComponent implements OnInit {
       description: [''],
       dueDate: ['', Validators.required],
       priority: [''],
+      category: [''],
       status: [''],
     });
+    const today = new Date();
+    this.minDate = today.toISOString().split('T')[0];
   }
 
   ngOnInit(): void {
@@ -53,7 +57,8 @@ export class TaskEditComponent implements OnInit {
             title: this.task.title,
             description: this.task.description,
             dueDate: this.task.dueDate,
-            priority: this.task.priority.toLowerCase(),
+            priority: this.task.priority,
+            category: this.task.category,
             status: this.task.status,
           });
         },
@@ -72,7 +77,7 @@ export class TaskEditComponent implements OnInit {
         .subscribe(() => {
           this.router.navigate(['/tasks']); // Navigate back to task list
         });
-      console.log('Task submitted:', this.editTaskForm.value);
+      // console.log('Task submitted:', this.editTaskForm.value);
     }
   }
 

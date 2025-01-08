@@ -28,9 +28,9 @@ export class AuthService {
 
   // Login method
   // auth.service.ts
-  login(username: string, password: string): Observable<string> {
+  login(username: string, password: string): Observable<any> {
     return this.http
-      .post<{ token: string }>(
+      .post<{ message: string }>(
         `${this.baseUrl}/login`,
         { username, password },
         {
@@ -39,7 +39,11 @@ export class AuthService {
       )
 
       .pipe(
-        map((response) => response.token),
+        map((response) => {
+          // Store logged-in state in local storage
+          localStorage.setItem('loggedIn', 'true');
+          return response.message; // Success message
+        }),
         catchError((error) => {
           // Extract and throw the error message from the response
           const errorMessage =
@@ -65,10 +69,15 @@ export class AuthService {
         next: () => {
           // Redirect to login or home after logout
           // this.cookieService.delete('auth_token');
-          this.cookieService.deleteAll('auth_token');
+          // On logout
+          localStorage.removeItem('loggedIn');
+
+          this.cookieService.delete('auth_token');
           this.router.navigate(['/register']);
+          window.location.reload();
         },
-        error: () => {
+        error: (err) => {
+          console.log(err);
           console.log('logout failed');
         },
       });

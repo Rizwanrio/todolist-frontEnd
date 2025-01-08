@@ -2,41 +2,89 @@
 <div class="add-task-page">
   <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
     <h2 class="new-task">Add New Task</h2>
-    <label for="title">Title:</label>
-    <input
-      class="input-style"
-      formControlName="title"
-      id="title"
-      type="text"
-      required
-    />
+
+    <div class="input-style-margin">
+      <label for="title">Title:</label>
+
+      <input
+        class="input-style"
+        formControlName="title"
+        id="title"
+        type="text"
+        [class.is-invalid]="
+          getControl('title')?.touched && getControl('title')?.invalid
+        "
+        required
+      />
+      <div
+        *ngIf="
+          getControl('title')?.touched &&
+          getControl('title')?.hasError('required')
+        "
+        class="invalid-feedback"
+      >
+        *Title is required
+      </div>
+    </div>
 
     <label for="description">Description:</label>
     <textarea formControlName="description" id="description"></textarea>
 
-    <label for="dueDate">Due Date:</label>
-    <input
-      formControlName="dueDate"
-      id="dueDate"
-      type="date"
-      class="input-style"
-    />
+    <div class="input-style-margin">
+      <label for="dueDate">Due Date:</label>
+
+      <input
+        formControlName="dueDate"
+        id="dueDate"
+        type="date"
+        [min]="minDate"
+        [class.is-invalid]="
+          getControl('dueDate')?.touched && getControl('dueDate')?.invalid
+        "
+        class="input-style"
+      />
+      <span
+        *ngIf="
+          getControl('dueDate')?.touched &&
+          getControl('dueDate')?.hasError('required')
+        "
+        class="invalid-feedback"
+      >
+        *Due date is Required
+      </span>
+    </div>
 
     <label for="priority">Priority:</label>
-    <select formControlName="priority">
-      <option value="Low" selected>Low</option>
+    <select
+      formControlName="priority"
+      required
+      class="input-style-margin"
+      id="priority"
+    >
+      <option value="Low">Low</option>
       <option value="Medium">Medium</option>
       <option value="High">High</option>
     </select>
 
-    <label for="status">Status:</label>
-    <select formControlName="status">
-      <option value="pending" selected>pending</option>
-      <option value="done">done</option>
-      <option value="overdue">overdue</option>
+    <label for="category">Category:</label>
+    <select formControlName="category" class="input-style-margin">
+      <option value="Work">Work</option>
+      <option value="Personal">Personal</option>
+      <option value="Health & Fitness">Health & Fitness</option>
+      <option value="Travel">Travel</option>
     </select>
+
+    <label for="status">Status:</label>
+    <select formControlName="status" class="input-style-margin">
+      <option value="Pending">Pending</option>
+      <option value="Done">Done</option>
+      <option value="Overdue">Overdue</option>
+    </select>
+
     <div class="submit-task-div">
-      <button type="submit" class="submit-task">Submit Task</button>
+      <button type="submit" class="submit-task" [disabled]="taskForm.invalid">
+        Submit Task
+      </button>
     </div>
   </form>
   <div class="nav-task-button">

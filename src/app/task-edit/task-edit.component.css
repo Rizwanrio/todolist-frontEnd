@@ -32,6 +32,10 @@ form {
 
 .new-task {
   margin: 0 0 30px 0;
+  background-color: #1976d2; /* Blue background for header */
+  color: white;
+  border-radius: 18px;
+  padding: 5px;
   text-align: center;
   font-size: 20px;
 }

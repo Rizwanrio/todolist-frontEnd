@@ -18,6 +18,7 @@ export class TaskListComponent implements OnInit {
   tasks: Task[] = [];
   notifications: string[] = [];
   isDropdownOpen = false;
+  ovderDueTasks: Task[] = [];
   // Replace ELEMENT_DATA with your actual data array
   paginatedData: any[] = [];
   currentPage = 1;
@@ -27,8 +28,7 @@ export class TaskListComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     private router: Router,
-    private authService: AuthService,
-    private notificationService: NotificationService
+    private authService: AuthService // private notificationService: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -44,12 +44,16 @@ export class TaskListComponent implements OnInit {
         const startIndex = (this.currentPage - 1) * this.pageSize;
         const endIndex = startIndex + this.pageSize;
         this.paginatedData = this.tasks.slice(startIndex, endIndex);
+        /*
         //notification logic
         this.notificationService
           .listenForOverdueTasks()
           .subscribe((message: string) => {
             this.notifications.push(message);
-          });
+          });*/
+        this.notify();
+        console.log(this.ovderDueTasks);
+        console.log(this.notifications);
       },
       error: (err) => {
         console.error('Error fetching tasks', err);
@@ -59,6 +63,15 @@ export class TaskListComponent implements OnInit {
 
   toggleDropdown(): void {
     this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  //notification logic
+
+  notify(): void {
+    this.ovderDueTasks = this.tasks.filter((el) => el.status === 'Overdue');
+    this.notifications = this.ovderDueTasks.map(
+      (el) => `Task ${el.title} is Overdue`
+    );
   }
 
   // Pagination functions
